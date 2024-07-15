@@ -23,14 +23,13 @@ export const fetchItems = createAsyncThunk(
       });
       return data;
     } catch (error) {
-      const err = error?.response?.data?.message || error?.message;
       dispatch(
         showAlert({
-          message: err || error?.message || "Something went wrong",
+          message: error,
           severity: "error",
         })
       );
-      return rejectWithValue(err);
+      return rejectWithValue(error);
     }
   }
 );
@@ -40,28 +39,23 @@ export const createItem = createAsyncThunk(
   async (item, { dispatch, rejectWithValue }) => {
     try {
       const token = localStorage.getItem("token");
-      const { data } = await axiosInstance.post(
-        "items",
-        item,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const { data } = await axiosInstance.post("items", item, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       dispatch(
         showAlert({ message: "Item added successfully!!", severity: "success" })
       );
       return data;
     } catch (error) {
-      const err = error?.response?.data?.message || error?.message;
       dispatch(
         showAlert({
-          message: err || error?.message || "Something went wrong",
+          message: error,
           severity: "error",
         })
       );
-      return rejectWithValue(err);
+      return rejectWithValue(error);
     }
   }
 );
@@ -71,15 +65,11 @@ export const updateItem = createAsyncThunk(
   async ({ id, item }, { dispatch, rejectWithValue }) => {
     try {
       const token = localStorage.getItem("token");
-      const { data } = await axiosInstance.put(
-        `items/${id}`,
-        item,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const { data } = await axiosInstance.put(`items/${id}`, item, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       dispatch(
         showAlert({
           message: "Item updated successfully!",
@@ -88,14 +78,13 @@ export const updateItem = createAsyncThunk(
       );
       return data;
     } catch (error) {
-      const err = error?.response?.data?.message || error?.message;
       dispatch(
         showAlert({
-          message: err || error?.message || "Something went wrong",
+          message: error,
           severity: "error",
         })
       );
-      return rejectWithValue(err);
+      return rejectWithValue(error);
     }
   }
 );
@@ -118,14 +107,13 @@ export const deleteItem = createAsyncThunk(
       );
       return id;
     } catch (error) {
-      const err = error?.response?.data?.message || error?.message;
       dispatch(
         showAlert({
-          message: err || error?.message || "Something went wrong",
+          message: error,
           severity: "error",
         })
       );
-      return rejectWithValue(err);
+      return rejectWithValue(error);
     }
   }
 );

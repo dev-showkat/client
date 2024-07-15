@@ -22,14 +22,13 @@ export const register = createAsyncThunk(
       );
       return data;
     } catch (error) {
-      const err = error?.response?.data?.message || error?.message;
       dispatch(
         showAlert({
-          message: err || error?.message || "Something went wrong",
+          message: error,
           severity: "error",
         })
       );
-      return rejectWithValue(err);
+      return rejectWithValue(error);
     }
   }
 );
@@ -42,14 +41,13 @@ export const login = createAsyncThunk(
       localStorage.setItem("token", data.token);
       return data;
     } catch (error) {
-      const err = error?.response?.data?.message || error?.message;
       dispatch(
         showAlert({
-          message: err || error?.message || "Something went wrong",
+          message: error,
           severity: "error",
         })
       );
-      return rejectWithValue(err);
+      return rejectWithValue(error);
     }
   }
 );
@@ -66,14 +64,13 @@ export const fetchProfile = createAsyncThunk(
       });
       return data;
     } catch (error) {
-      const err = error?.response?.data?.message || error?.message;
-      dispatch(
+       dispatch(
         showAlert({
-          message: err || error?.message || "Something went wrong",
+          message: error,
           severity: "error",
         })
       );
-      return rejectWithValue(err);
+      return rejectWithValue(error);
     }
   }
 );
