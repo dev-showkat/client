@@ -12,10 +12,7 @@ export const register = createAsyncThunk(
   "user/register",
   async (user, { dispatch, rejectWithValue }) => {
     try {
-      const { data } = await axiosInstance.post(
-        "http://localhost:8000/api/users/register",
-        user
-      );
+      const { data } = await axiosInstance.post("users/register", user);
       localStorage.setItem("token", data.token);
       dispatch(
         showAlert({
@@ -41,10 +38,7 @@ export const login = createAsyncThunk(
   "user/login",
   async (credentials, { dispatch, rejectWithValue }) => {
     try {
-      const { data } = await axiosInstance.post(
-        "http://localhost:8000/api/users/login",
-        credentials
-      );
+      const { data } = await axiosInstance.post("users/login", credentials);
       localStorage.setItem("token", data.token);
       return data;
     } catch (error) {
@@ -65,14 +59,11 @@ export const fetchProfile = createAsyncThunk(
   async (_, { dispatch, rejectWithValue }) => {
     try {
       const token = localStorage.getItem("token");
-      const { data } = await axiosInstance.get(
-        "http://localhost:8000/api/users/profile",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const { data } = await axiosInstance.get("users/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return data;
     } catch (error) {
       const err = error?.response?.data?.message || error?.message;
