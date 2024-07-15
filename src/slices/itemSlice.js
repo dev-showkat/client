@@ -41,7 +41,7 @@ export const createItem = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
       const { data } = await axiosInstance.post(
-        "http://localhost:8000/api/items",
+        "items",
         item,
         {
           headers: {
@@ -72,7 +72,7 @@ export const updateItem = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
       const { data } = await axiosInstance.put(
-        `http://localhost:8000/api/items/${id}`,
+        `items/${id}`,
         item,
         {
           headers: {
@@ -105,7 +105,7 @@ export const deleteItem = createAsyncThunk(
   async (id, { dispatch, rejectWithValue }) => {
     try {
       const token = localStorage.getItem("token");
-      await axiosInstance.delete(`http://localhost:8000/api/items/${id}`, {
+      await axiosInstance.delete(`items/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
