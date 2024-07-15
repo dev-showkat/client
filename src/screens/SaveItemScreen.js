@@ -5,7 +5,6 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
-  CircularProgress,
   Box,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,9 +33,7 @@ const validationSchema = yup.object({
 });
 
 function SaveItemScreen() {
-  const { isDialogOpen, loading, selectedItem } = useSelector(
-    (state) => state.items
-  );
+  const { isDialogOpen, selectedItem } = useSelector((state) => state.items);
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -118,7 +115,7 @@ function SaveItemScreen() {
             type="submit"
             sx={{ mt: 3, mb: 2 }}
           >
-            {loading ? <CircularProgress size={24} /> : "Save"}
+            Save
           </Button>
         </Box>
       </DialogContent>

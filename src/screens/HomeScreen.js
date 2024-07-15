@@ -1,23 +1,17 @@
 import { useSelector } from "react-redux";
-import { Container, Box, CircularProgress } from "@mui/material";
+import { Container, Box, LinearProgress } from "@mui/material";
 import LoginScreen from "./LoginScreen";
 import ItemsScreen from "./ItemsScreen";
 
 const HomeScreen = () => {
-  const { userInfo, loading } = useSelector((state) => state.user);
+  const { userInfo, loading: userLoading } = useSelector((state) => state.user);
+  const { loading: itemLoading } = useSelector((state) => state.items);
+  const token = localStorage.getItem("token");
 
   return (
     <Container component="main">
-      {loading ? (
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          height="80vh"
-        >
-          <CircularProgress />
-        </Box>
-      ) : userInfo ? (
+      {(userLoading || itemLoading) && <LinearProgress color="secondary" />}
+      {userInfo ? (
         <Box
           sx={{
             display: "flex",
@@ -27,7 +21,7 @@ const HomeScreen = () => {
         >
           <ItemsScreen />
         </Box>
-      ) : (
+      ) : (token?"":
         <Box
           sx={{
             mt: 8,

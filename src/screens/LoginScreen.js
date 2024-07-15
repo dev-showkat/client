@@ -6,7 +6,6 @@ import {
   TextField,
   Box,
   Container,
-  CircularProgress,
   Typography,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -23,8 +22,7 @@ const loginSchema = yup.object({
 
 const LoginScreen = () => {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.user);
-
+ 
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -84,7 +82,7 @@ const LoginScreen = () => {
           type="submit"
           sx={{ mt: 3, mb: 2 }}
         >
-          {loading ? <CircularProgress size={24} /> : "Sign In"}
+          Sign In
         </Button>
       </Box>
     </Container>
